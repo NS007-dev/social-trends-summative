@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Between Two Worlds | Cultural Identity in Canada by Noorin Sakhi</title>
+
+    <style>
+        /* REPLACE ONLY THE :root SECTION WITH THIS */
+
+        :root {
+            --bg: #07111f;
+            --bg2: #0b1a2d;
+            --card: rgba(255, 255, 255, 0.06);
+            --text: #f8fafc;
+            --muted: #cbd5e1;
+
+            /* Canada Theme */
+            --glow: #ef4444;
+            /* red */
+            --pink: #dc2626;
+            /* deep red */
+            --cyan: #ffffff;
+            /* white */
+
+            --line: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Inter, Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(59, 130, 246, .18), transparent 30%),
+                radial-gradient(circle at bottom right, rgba(236, 72, 153, .14), transparent 35%),
+                linear-gradient(135deg, var(--bg), var(--bg2));
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0b1020;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--cyan), var(--glow));
+            border-radius: 10px;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjX29I5cPyfR9yRUgYFb9kaeVjY6MuMk9PqQ&s") center/cover;
+            opacity: .12;
+            filter: blur(2px);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 10px 18px;
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: 999px;
+            color: var(--cyan);
+            font-size: .9rem;
+            margin-bottom: 20px;
+            backdrop-filter: blur(8px);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.7rem, 8vw, 6rem);
+            line-height: 1.05;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(96, 165, 250, .35);
+        }
+
+        .hero h1 span {
+            background: linear-gradient(90deg, var(--cyan), var(--glow), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--muted);
+            max-width: 760px;
+            margin: auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .btn {
+            margin-top: 35px;
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 14px;
+            background: linear-gradient(90deg, var(--glow), var(--pink));
+            box-shadow: 0 0 20px rgba(96, 165, 250, .35);
+            transition: .3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-4px) scale(1.03);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin: 60px 0 20px;
+        }
+
+        .section-sub {
+            text-align: center;
+            color: var(--muted);
+            margin-bottom: 60px;
+            padding: 0 20px;
+        }
+
+        /* TIMELINE */
+        .timeline {
+            width: min(1200px, 92%);
+            margin: auto;
+            position: relative;
+            padding-bottom: 100px;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(var(--cyan), var(--glow), var(--pink));
+            box-shadow: 0 0 20px var(--glow);
+        }
+
+        .item {
+            width: 50%;
+            padding: 25px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: 1s ease;
+        }
+
+        .item.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .item.left {
+            left: 0;
+        }
+
+        .item.right {
+            left: 50%;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid rgba(255, 255, 255, .08);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 0 30px rgba(96, 165, 250, .12);
+            transition: .35s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow:
+                0 20px 40px rgba(0, 0, 0, .3),
+                0 0 35px rgba(96, 165, 250, .25);
+        }
+
+        .card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 18px;
+            margin-bottom: 18px;
+        }
+
+        .year {
+            display: inline-block;
+            font-size: .9rem;
+            letter-spacing: 1px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            margin-bottom: 15px;
+            background: rgba(96, 165, 250, .12);
+            color: var(--cyan);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #dbe4f1;
+            line-height: 1.75;
+            margin-bottom: 14px;
+            font-size: 1rem;
+        }
+
+        .stat {
+            color: #fff;
+            font-weight: 700;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+
+        .theory {
+            margin-top: 16px;
+            padding: 12px;
+            border-left: 3px solid var(--pink);
+            background: rgba(236, 72, 153, .08);
+            border-radius: 10px;
+            color: #fbcfe8;
+            font-size: .95rem;
+            line-height: 1.6;
+        }
+
+        .item::after {
+            content: "";
+            position: absolute;
+            top: 40px;
+            width: 18px;
+            height: 18px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 20px white;
+        }
+
+        .item.left::after {
+            right: -9px;
+        }
+
+        .item.right::after {
+            left: -9px;
+        }
+
+        /* OUTRO */
+        .outro {
+            width: min(1000px, 92%);
+            margin: 40px auto 60px;
+        }
+
+        .outro-card {
+            padding: 40px;
+            border-radius: 28px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, .12), rgba(236, 72, 153, .12));
+            border: 1px solid rgba(255, 255, 255, .08);
+            text-align: center;
+        }
+
+        .outro h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .outro p {
+            color: #dbe4f1;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* CITATIONS */
+        .sources {
+            width: min(1100px, 92%);
+            margin: 0 auto 100px;
+        }
+
+        .sources-box {
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 24px;
+            padding: 35px;
+        }
+
+        .sources h2 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .sources p {
+            line-height: 1.9;
+            color: #dbe4f1;
+            margin-bottom: 14px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--muted);
+            border-top: 1px solid rgba(255, 255, 255, .06);
+        }
+
+        /* MOBILE */
+        @media(max-width:900px) {
+
+            .timeline::before {
+                left: 22px;
+            }
+
+            .item,
+            .item.left,
+            .item.right {
+                width: 100%;
+                left: 0;
+                padding-left: 55px;
+                padding-right: 10px;
+            }
+
+            .item::after,
+            .item.left::after,
+            .item.right::after {
+                left: 13px;
+                right: auto;
+            }
+
+            .card img {
+                height: 190px;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="badge">HSB4U Social Trends Summative</div>
+            <h1>Between <span>Two Worlds</span></h1>
+            <h3>Website coded by Noorin Sakhi</h3>
+            <p>
+                An interactive timeline exploring how immigrants and their families
+                have adapted to life in Canada while preserving language, traditions,
+                beliefs, and identity.
+            </p>
+            <a href="#timeline" class="btn">Explore Timeline</a>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-title">The Evolution of Identity in Canada</h2>
+        <p class="section-sub">
+            From post-war immigration to Gen Z hybrid identity, Canada has continuously changed through migration and
+            multiculturalism.
+        </p>
+    </section>
+
+    <section class="timeline" id="timeline">
+
+        <div class="item left">
+            <div class="card">
+                <img
+                    src="https://bc-timeline-backend.azureedge.net/sites/default/files/styles/gallery_resized/public/images/3-8%20OJA%20628.jpg">
+                <div class="year">1950s-1960s</div>
+                <h3>Post-War Immigration and Assimilation</h3>
+                <p>
+                    After World War II, Canada accepted many immigrants from Europe, especially from Italy, Germany, and
+                    the United Kingdom. Workers were needed for construction, transportation, and manufacturing as the
+                    economy grew quickly.
+                </p>
+                <p>
+                    Although newcomers helped build Canada, many felt pressure to learn English fast, hide accents, and
+                    adapt to dominant cultural norms in order to succeed.
+                </p>
+                <div class="stat">Trend: Cultural identity was often treated as private, while fitting in publicly was
+                    expected.</div>
+                <div class="theory">Marx: Immigrant labour supported economic growth, but many workers had less power
+                    and lower wages.</div>
+            </div>
+        </div>
+
+        <div class="item right">
+            <div class="card">
+                <img src="https://canadiangeographic.ca/wp-content/uploads/2022/02/jap-201097-654-1-1440x1055.png">
+                <div class="year">1971</div>
+                <h3>Canada Adopts Multiculturalism</h3>
+                <p>
+                    In 1971, Canada became the first country in the world to introduce an official multiculturalism
+                    policy. This meant people were encouraged to maintain traditions, language, and heritage while fully
+                    participating in Canadian society.
+                </p>
+                <p>
+                    This was a major shift away from assimilation and helped redefine what it meant to be Canadian.
+                </p>
+                <div class="stat">Trend: Diversity became part of national identity.</div>
+                <div class="theory">Gramsci: Multiculturalism challenged the idea that one dominant culture should
+                    define society.</div>
+            </div>
+        </div>
+
+        <div class="item left">
+            <div class="card">
+                <img src="https://torontolife.mblycdn.com/tl/resized/2022/06/w1280/Pride-16.jpg">
+                <div class="year">1980s–1990s</div>
+                <h3>Changing Immigration Patterns</h3>
+                <p>
+                    Immigration increasingly came from Asia, the Caribbean, Africa, and the Middle East. Large cities
+                    such as Toronto, Vancouver, and Montreal became more ethnically and linguistically diverse.
+                </p>
+                <p>
+                    However, many skilled immigrants still faced barriers such as foreign credentials not being
+                    recognized, housing inequality, and discrimination.
+                </p>
+                <div class="stat">Trend: Canada became more diverse, but opportunity was not equal for everyone.</div>
+                <div class="theory">Weber: Education alone does not guarantee status if social barriers still exist.
+                </div>
+            </div>
+        </div>
+
+        <div class="item right">
+            <div class="card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNBLwgGuqAem34r4EHKlU5x2wn9V_vy2hFyQ&s">
+                <div class="year">2000s</div>
+                <h3>Globalization and Dual Identity</h3>
+                <p>
+                    Technology changed immigration experiences. Through video calls, messaging apps, and online media,
+                    families could stay connected across borders while living in Canada.
+                </p>
+                <p>
+                    Many people no longer felt forced to choose one identity. They could be proudly Canadian while also
+                    remaining strongly connected to their heritage culture.
+                </p>
+                <div class="stat">Trend: Identity became global and flexible.</div>
+                <div class="theory">McLuhan: The world became a “global village” through media and communication.</div>
+            </div>
+        </div>
+
+        <div class="item left">
+            <div class="card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcamacr1HO9B4GtF4_0mwsbj_p_xo5afO9Ow&s">
+                <div class="year">2010s</div>
+                <h3>Refugees and Inclusion</h3>
+                <p>
+                    Canada accepted many refugees fleeing war and crisis, including Syrians. This highlighted Canada’s
+                    humanitarian role and the importance of community support systems.
+                </p>
+                <p>
+                    Settlement agencies, schools, and neighbourhood organisations helped newcomers adjust to housing,
+                    education, language, and employment.
+                </p>
+                <div class="stat">Trend: Arrival alone does not create belonging- support systems matter.</div>
+                <div class="theory">Social institutions can either reduce or increase inequality.</div>
+            </div>
+        </div>
+
+        <div class="item right">
+            <div class="card">
+                <img
+                    src="https://i2.wp.com/media.globalnews.ca/videostatic/news/jrexc04wh7-9bllwk70sx/GenZedElection_720x480_v1_1_.png?w=1040&quality=70&strip=all">
+                <div class="year">2020s</div>
+                <h3>Gen Z and Hybrid Identity</h3>
+                <p>
+                    Many young Canadians now grow up balancing family traditions with mainstream Canadian culture. They
+                    may speak different languages at home, celebrate multiple holidays, and move between different
+                    social expectations.
+                </p>
+                <p>
+                    According to Statistics Canada, immigrants represented 23% of Canada's population in 2021, the
+                    highest proportion among G7 countries.
+                </p>
+                <div class="stat">Trend: Belonging can exist in more than one culture at the same time.</div>
+                <div class="theory">Social Stratification: Race, income, and neighbourhood still influence
+                    opportunities.</div>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="outro">
+        <div class="outro-card">
+            <h2>The Canada of Today</h2>
+            <p>
+                Canada is often seen as a multicultural success story, but inclusion requires more than policy. Equal
+                opportunity, respect, and representation are still ongoing goals. Modern identity in Canada is no longer
+                about choosing between two worlds- it is about learning to thrive in both.
+            </p>
+        </div>
+    </section>
+
+    <section class="sources">
+        <div class="sources-box">
+            <h2>References (APA 7th Edition)</h2>
+
+            <p>
+                Berry, J. W. (1997). Immigration, acculturation, and adaptation. <em>Applied Psychology, 46</em>(1),
+                5–34. https://doi.org/10.1111/j.1464-0597.1997.tb01087.x
+            </p>
+
+            <p>
+                Government of Canada. (2024). Canadian multiculturalism overview.
+                https://www.canada.ca/en/canadian-heritage/services/multiculturalism.html
+            </p>
+
+            <p>
+                Statistics Canada. (2022). Immigrants make up the largest share of the population in over 150 years and
+                continue to shape who we are as Canadians.
+                https://www12.statcan.gc.ca/census-recensement/2021/as-sa/98-200-X/2021009/98-200-x2021009-eng.cfm
+            </p>
+
+        </div>
+    </section>
+
+    <footer>
+        Created for HSB4U Social Trends Summative by Noorin Sakhi
+    </footer>
+
+    <script>
+        const items = document.querySelectorAll('.item');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, {
+            threshold: 0.18
+        });
+
+        items.forEach(item => observer.observe(item));
+    </script>
+
+</body>
+
+</html>
